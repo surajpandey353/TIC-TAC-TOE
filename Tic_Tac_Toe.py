@@ -6,36 +6,25 @@ Created on Wed Mar 25 11:26:13 2020
 """
 import numpy as np
 
+#Board where tic-tac-toe will be played
 board = np.array([('','',''),('','','',),('','','')])
 
 Play = True
 
-#def display_board():
-    #print(board)
-     
-#display_board()
 
+#function that can take in a player input and assign their marker as 'X' or 'O'
 def player_input():
     marker = ''
-    while marker != 'X' or marker != 'O':
-        input('Player1 choose your marker X or O: ').upper()
-        if marker == 'X':
-            return ('X', 'O')
-            break 
+    while not (marker == 'X' or marker == 'O'):
+        marker = input('Player1 choose your marker X or O: ').upper()
         
-        elif marker == 'O': 
-            return('O','X')
-            break
-        else:
-            print('Invalid Input!, Try Again')
-
-#player_input()
+    if marker == 'X':
+        return ('X', 'O')
        
-def place_marker():
-    board[i][j] = 15
-    print(board)
-#place_marker()
-    
+    else: 
+        return('O','X')
+        
+#Winning Condition   
 def win_check(board,mark):
     return( (board[0][0] == board[0][1]==board[0][2] == mark) or 
     (board[1][0] == board[1][1]==board[1][2] == mark) or
@@ -46,9 +35,7 @@ def win_check(board,mark):
     (board[0][0] == board[1][1]==board[2][2] == mark) or
     (board[0][2] == board[1][1]==board[2][0] == mark))
     
-  
-#print(win_check(board,5))
-    
+#Choosing Player who will make the first move using Random Generator.    
 import random
 
 def choose_first():
@@ -57,15 +44,14 @@ def choose_first():
     else:
         return 'Player 1'
     
-    
+ #When a row(i) and column(j) is entered ,The below function checks if the space is vacant.  
 def space_check(i,j):
     if board[i][j] == '':
         return True
     else:
         return False
     
-#print(space_check(0,2))  
-        
+#To check if the board is full and no further move can be made.        
 def full_board_check():
     for i in range(3):
         for j in range(3):
@@ -73,31 +59,25 @@ def full_board_check():
                 return False
             else:
                 return True
-#print(full_board_check())         
-                
-def player_choice():
-    #marker1 = 'X'
-    #marker2 = 'O'
-
-        
+       
+#This function takes the position where the player wishes to enter.               
+def player_choice():      
     while Play:
         
         print('Enter your next move')
         i = int(input('Enter row: '))
         j= int(input('Enter column: '))
         if  i  in [0,1,2] and j in [0,1,2] and space_check(i,j):
-            
             return i,j
             break
         else:
             print('Invalid Input, Please Try Again')
             
-        
-#player_choice()   
+#This function prompts the user for replaying the game.  
 def replay():
     
     while True:
-        rplay=input('Play again? Y/N  ')
+        rplay=input('Play again? Y/N  ').upper()
         if rplay == 'Y':
             return True
             break
@@ -107,7 +87,7 @@ def replay():
         else:
             print("Invalid Input, Try Again")
         
-#print(replay())   
+#This is the main algorithm how the game should proceed stepwise. 
 def main():
     print('Welcome to Tic Tac Toe')
 
@@ -115,12 +95,12 @@ def main():
     while True:
         board = np.array([('','',''),('','',''),('','','')])
     
-    #Player and their Marker
+#Player and their Marker
         Player1_marker,Player2_marker = player_input()
         turn = choose_first()
         print(turn + ' will go first')
     
-        play_game= input("Are you ready? Y/N ")
+        play_game= input("Are you ready? Y/N ").upper()
         if play_game == 'Y':
             game_on = True
         else:
